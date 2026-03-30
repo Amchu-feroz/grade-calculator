@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-calculator"></i> Grade Calculator App</h1>
+                <p>Smart grade calculator for students</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="calculator">Grade Calculator</button>
+                <button class="tab-btn" data-tab="final-grade">Final Grade Predictor</button>
+                <button class="tab-btn" data-tab="gpa-calculator">GPA Calculator</button>
+            </div>
+
+            <div class="tab-content active" id="calculator">
+                <div class="card">
+                    <h2><i class="fas fa-book"></i> Current Course Grade</h2>
+                    <div class="form-group">
+                        <label for="course-name">Course Name:</label>
+                        <input type="text" id="course-name" placeholder="e.g. Computer Science 101">
+                    </div>
+                    
+                    <div id="grade-components">
+                        <div class="component">
+                            <div class="form-group">
+                                <label>Component Name</label>
+                                <input type="text" class="component-name" placeholder="e.g. Midterm Exam">
+                            </div>
+                            <div class="form-group">
+                                <label>Grade (%)</label>
+                                <input type="number" class="component-grade" placeholder="85" min="0" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Weight (%)</label>
+                                <input type="number" class="component-weight" placeholder="30" min="0" max="100">
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button id="add-component" class="btn-secondary"><i class="fas fa-plus"></i> Add Component</button>
+                    
+                    <div class="results">
+                        <div class="result-card">
+                            <h3>Current Grade</h3>
+                            <div class="grade-display" id="current-grade">--</div>
+                            <div class="grade-letter" id="letter-grade">--</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>Total Weight</h3>
+                            <div class="grade-display" id="total-weight">0%</div>
+                            <div class="weight-status" id="weight-status">(Incomplete)</div>
+                        </div>
+                    </div>
+                    
+                    <button id="calculate-grade" class="btn-primary"><i class="fas fa-calculator"></i> Calculate Grade</button>
+                    <button id="save-course" class="btn-secondary"><i class="fas fa-save"></i> Save Course</button>
+                </div>
+                
+                <div class="card saved-courses">
+                    <h2><i class="fas fa-bookmark"></i> Saved Courses</h2>
+                    <div id="saved-courses-list"></div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="final-grade">
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> Final Grade Predictor</h2>
+                    <div class="form-group">
+                        <label for="current-grade-input">Current Grade (%):</label>
+                        <input type="number" id="current-grade-input" placeholder="85" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="final-weight">Final Exam Weight (%):</label>
+                        <input type="number" id="final-weight" placeholder="30" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="desired-grade">Desired Course Grade (%):</label>
+                        <input type="number" id="desired-grade" placeholder="90" min="0" max="100">
+                    </div>
+                    
+                    <button id="calculate-final" class="btn-primary"><i class="fas fa-calculator"></i> Calculate Required Final Score</button>
+                    
+                    <div class="results">
+                        <div class="result-card">
+                            <h3>Required Final Score</h3>
+                            <div class="grade-display" id="required-final-score">--</div>
+                            <div class="grade-letter" id="required-letter-grade">--</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="grade-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="gpa-calculator">
+                <div class="card">
+                    <h2><i class="fas fa-star"></i> GPA Calculator</h2>
+                    <div id="gpa-courses">
+                        <div class="gpa-course">
+                            <div class="form-group">
+                                <label>Course Name</label>
+                                <input type="text" class="gpa-course-name" placeholder="e.g. Mathematics">
+                            </div>
+                            <div class="form-group">
+                                <label>Credits</label>
+                                <input type="number" class="gpa-course-credits" placeholder="3" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Grade</label>
+                                <select class="gpa-course-grade">
+                                    <option value="4.0">A (4.0)</option>
+                                    <option value="3.7">A- (3.7)</option>
+                                    <option value="3.3">B+ (3.3)</option>
+                                    <option value="3.0">B (3.0)</option>
+                                    <option value="2.7">B- (2.7)</option>
+                                    <option value="2.3">C+ (2.3)</option>
+                                    <option value="2.0">C (2.0)</option>
+                                    <option value="1.7">C- (1.7)</option>
+                                    <option value="1.3">D+ (1.3)</option>
+                                    <option value="1.0">D (1.0)</option>
+                                    <option value="0.0">F (0.0)</option>
+                                </select>
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button id="add-gpa-course" class="btn-secondary"><i class="fas fa-plus"></i> Add Course</button>
+                    
+                    <div class="results">
+                        <div class="result-card">
+                            <h3>GPA</h3>
+                            <div class="grade-display" id="gpa-result">--</div>
+                            <div class="gpa-status" id="gpa-status"></div>
+                        </div>
+                        <div class="result-card">
+                            <h3>Total Credits</h3>
+                            <div class="grade-display" id="total-credits">0</div>
+                        </div>
+                    </div>
+                    
+                    <button id="calculate-gpa" class="btn-primary"><i class="fas fa-calculator"></i> Calculate GPA</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>GradeMaster &copy; 2023 | A smart tool for students</p>
+            <div class="footer-links">
+                <a href="#" id="reset-all"><i class="fas fa-trash"></i> Reset All</a>
+                <a href="#" id="export-data"><i class="fas fa-download"></i> Export Data</a>
+                <a href="#" id="import-data"><i class="fas fa-upload"></i> Import Data</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
